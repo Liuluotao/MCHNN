@@ -2,7 +2,7 @@
 
 The code for paper " Multi-view Contrastive Learning Hypergraph Neural Network for Drug-Microbe-Disease Association Prediction''.
 
-![image-20230110161157410](.\figure\model.png) 
+![image-20230110161157410](./figure/model.png) 
 
 ## 1.Overview
 
