@@ -146,42 +146,6 @@ def get_metrics(real_score, predict_score):
     precision = precision_list[max_index, 0]
     return [aupr[0, 0], auc[0, 0], f1_score, accuracy, recall, specificity, precision]
 
-def hit_ndcg_ls(top, fold_th, pred_val, val_data, val,
-                hit_ls_1, hit_ls_2, hit_ls_3, hit_ls_4, ndcg_ls_1, ndcg_ls_2, ndcg_ls_3, ndcg_ls_4, epoch=False,
-                loss_test=False):
-    loader_val = torch.utils.data.DataLoader(dataset=pred_val, batch_size=100, shuffle=False)
-    hits = 0
-    ndcg_val = 0
-    for step, batch_val in enumerate(loader_val):
-        metrix = Metrics(step, val_data, pred_val, batch_size=100, top=top)
-        hit, ndcg = metrix.hits_ndcg()
-        hits = hits + hit
-        ndcg_val = ndcg_val + ndcg
-    hits = hits / int((len(val_data)) / 100)
-    ndcg = ndcg_val / int((len(val_data)) / 100)
-    if val == 1:
-        hit_ls_1.append(hits)
-        ndcg_ls_1.append(ndcg)
-    if val == 2:
-        hit_ls_2.append(hits)
-        ndcg_ls_2.append(ndcg)
-    if val == 3:
-        hit_ls_3.append(hits)
-        ndcg_ls_3.append(ndcg)
-    if val == 4:
-        hit_ls_4.append(hits)
-        ndcg_ls_4.append(ndcg)
-    if loss_test and epoch:
-        print('fold_num:', fold_th, 'epoch:{:02d},'.format(epoch),
-              'val_type:{:02d},'.format(val),
-              'loss_test:{:.6f},'.format(loss_test), 'hit: {:.6f},'.format(hits),
-              'ndcg:{:.6f},'.format(ndcg))
-    else:
-        print('fold_num:', fold_th,
-              'val_type:{:02d},'.format(val),
-              'hit: {:.6f},'.format(hits), 'ndcg:{:.6f},'.format(ndcg))
-    return hit_ls_1, hit_ls_2, hit_ls_3, hit_ls_4, ndcg_ls_1, ndcg_ls_2, ndcg_ls_3, ndcg_ls_4
-
 def hit_ndcg_value(pred_val, val_data, top):
     loader_val = torch.utils.data.DataLoader(dataset=pred_val, batch_size=30, shuffle=False)
     hits = 0
