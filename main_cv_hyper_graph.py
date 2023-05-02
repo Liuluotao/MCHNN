@@ -134,11 +134,6 @@ if __name__ == '__main__':
     torch.backends.cudnn.benchmark = False
     torch.backends.cudnn.deterministic = True
 
-    patience_num_matrix = np.zeros((1, 4))
-    epoch_max_matrix = np.zeros((1, 4))
-    hits_max_matrix = np.zeros((4, 3))
-    ndcg_max_matrix = np.zeros((4, 3))
-
     patience = 300
     smiles_file = './Data/drug_smiles_270.csv'
     batch_drug = drug_fea_process(smiles_file, drug_num=270)
@@ -155,6 +150,10 @@ if __name__ == '__main__':
     kf = KFold(n_splits=args.k_fold, shuffle=True, random_state=args.seed)
     fold_num = 0
     for train_index, val_index in kf.split(cv_data):
+        patience_num_matrix = np.zeros((1, 4))
+        epoch_max_matrix = np.zeros((1, 4))
+        hits_max_matrix = np.zeros((4, 3))
+        ndcg_max_matrix = np.zeros((4, 3))
         fold_num += 1
         hypergraph_pos, hypergraph_neg_ls, tra_data, val_1, val_2, val_3, val_4 = \
             get_train_val_data(cv_data, train_index, val_index, adj_data)
