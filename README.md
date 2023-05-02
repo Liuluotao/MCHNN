@@ -1,6 +1,6 @@
 # MCHNN
 
-The code for paper " Multi-view Contrastive Learning Hypergraph Neural Network for Drug-Microbe-Disease Association Prediction''.
+The code for paper " Multi-view Contrastive Learning Hypergraph Neural Network for Drug-Microbe-Disease Association Prediction(IJCAI 2023)''.
 
 ![image-20230110161157410](./figure/model.png) 
 
