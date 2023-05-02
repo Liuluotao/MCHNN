@@ -48,57 +48,17 @@ def test(drug_fea, mic_fea, dis_fea, hg_pos, hg_neg_ls, val_data_1, val_data_2, 
             ealy_stop(val, e, hits_1, ndcg_1, hits_3, ndcg_3, hits_5, ndcg_5)
 
 def ealy_stop(val, e, hits_1, ndcg_1, hits_3, ndcg_3, hits_5, ndcg_5):
-    if val == 1:
-        if hits_1 >= hits_max_matrix[0][0]:
-            hits_max_matrix[0][0] = hits_1
-            ndcg_max_matrix[0][0] = ndcg_1
-            hits_max_matrix[0][1] = hits_3
-            ndcg_max_matrix[0][1] = ndcg_3
-            hits_max_matrix[0][2] = hits_5
-            ndcg_max_matrix[0][2] = ndcg_5
-            epoch_max_matrix[0][0] = e + 1
-            patience_num_matrix[0][0] = 0
-        else:
-            patience_num_matrix[0][0] += 1
-
-    elif val == 2:
-        if hits_1 >= hits_max_matrix[1][0]:
-            hits_max_matrix[1][0] = hits_1
-            ndcg_max_matrix[1][0] = ndcg_1
-            hits_max_matrix[1][1] = hits_3
-            ndcg_max_matrix[1][1] = ndcg_3
-            hits_max_matrix[1][2] = hits_5
-            ndcg_max_matrix[1][2] = ndcg_5
-            epoch_max_matrix[0][1] = e + 1
-            patience_num_matrix[0][1] = 0
-        else:
-            patience_num_matrix[0][1] += 1
-
-    elif val == 3:
-        if hits_1 >= hits_max_matrix[2][0]:
-            hits_max_matrix[2][0] = hits_1
-            ndcg_max_matrix[2][0] = ndcg_1
-            hits_max_matrix[2][1] = hits_3
-            ndcg_max_matrix[2][1] = ndcg_3
-            hits_max_matrix[2][2] = hits_5
-            ndcg_max_matrix[2][2] = ndcg_5
-            epoch_max_matrix[0][2] = e + 1
-            patience_num_matrix[0][2] = 0
-        else:
-            patience_num_matrix[0][2] += 1
-
+    if hits_1 >= hits_max_matrix[val-1][0]:
+        hits_max_matrix[val-1][0] = hits_1
+        ndcg_max_matrix[val-1][0] = ndcg_1
+        hits_max_matrix[val-1][1] = hits_3
+        ndcg_max_matrix[val-1][1] = ndcg_3
+        hits_max_matrix[val-1][2] = hits_5
+        ndcg_max_matrix[val-1][2] = ndcg_5
+        epoch_max_matrix[0][val-1] = e + 1
+        patience_num_matrix[0][val-1] = 0
     else:
-        if hits_1 >= hits_max_matrix[3][0]:
-            hits_max_matrix[3][0] = hits_1
-            ndcg_max_matrix[3][0] = ndcg_1
-            hits_max_matrix[3][1] = hits_3
-            ndcg_max_matrix[3][1] = ndcg_3
-            hits_max_matrix[3][2] = hits_5
-            ndcg_max_matrix[3][2] = ndcg_5
-            epoch_max_matrix[0][3] = e + 1
-            patience_num_matrix[0][3] = 0
-        else:
-            patience_num_matrix[0][3] += 1
+        patience_num_matrix[0][val-1] += 1
 
 if __name__ == '__main__':
     args = parameters_set()
